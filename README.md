@@ -32,4 +32,4 @@ Navigate to that URL in your browser to see the robot walk as shown below.
 
 ![](media/walking.gif)
 
-This implementation is heavily inspired by [Chauby's Python implementation](https://github.com/chauby/BipedalWalkingRobots)
+This implementation is inspired by [Chauby's Python implementation](https://github.com/chauby/BipedalWalkingRobots)
