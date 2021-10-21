@@ -1,5 +1,19 @@
 module lipm
 
-# Write your package code here. ok
+using StaticArrays
+using MeshCat
+using GeometryBasics
+using Colors
+using CoordinateTransformations, Rotations
+using LinearAlgebra
 
-end
+include("dynamics/walking_dynamics.jl")
+include("dynamics/interface.jl")
+include("simulation/animate.jl")
+
+
+export 
+    move_to_position,
+    animate_walking_trajectory
+
+end # module
