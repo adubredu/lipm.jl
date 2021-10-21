@@ -25,3 +25,6 @@ X = move_to_position(init_position; goal_position=goal_position)
 animate_walking_trajectory(X) 
 
 ```
+The simulation is rendered at a URL that looks like  `http://127.0.0.1:XXXX` in your REPL. Navigate to that URL in your browser to see the robot walk as shown below.
+
+![](media/walking.gif)
