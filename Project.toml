@@ -1,0 +1,13 @@
+name = "lipm"
+uuid = "ce67deef-48d3-427a-a67d-1f4b604575b4"
+authors = ["Alphonsus Adu-Bredu"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
