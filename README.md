@@ -12,6 +12,7 @@ This repository contains a Julia package that implements the 3D Linear Inverted 
 `lipm` can be added via the Julia package manager.
 
 Open a REPL and type `]`
+
 Next type  `add https://github.com/alphonsusadubredu/lipm.jl` and press `Enter` to install the package and its dependencies.
 
 
