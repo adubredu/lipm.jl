@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="raphael">
+	<material name="red">
+	    <color rgba="1.0 1.0 1.0 1.0"/>
+	  </material>
+	<link name="torso">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 0"/>
+	      <mass value="4"/>
+	      <inertia ixx="9.72" ixy="0" ixz="0" iyy="1.333" iyz="0" izz="0.6075"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="1.5707 0 0" xyz="0 0 0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/torso2.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 0.5"/>
+	    	<geometry>
+	        <cylinder radius="0.25" length="0.8"/>
+	      </geometry>
+	    </collision>
+	</link>
+
+	<link name="left_shoulder_base"/> 
+
+	<link name="left_shoulder">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 0 0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/shoulder.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/shoulder.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	 <joint name="left_shoulder_base_joint" type="fixed"> 
+	    <parent link="torso"/>
+	    <child link="left_shoulder_base"/>
+	    <origin rpy="0 0 0" xyz="0 0.2 0.6"/>   
+  	</joint>
+
+  <joint name="left_shoulder_joint" type="revolute"> 
+	    <parent link="left_shoulder_base"/>
+	    <child link="left_shoulder"/>
+	    <origin rpy="0 0 0" xyz="0 0 0"/>  
+	    <axis xyz="0 1 0"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+	<link name="left_hand">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.2"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/hand.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.2"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/hand.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	<joint name="left_hand_joint" type="revolute"> 
+	    <parent link="left_shoulder"/>
+	    <child link="left_hand"/>
+	    <origin rpy="0 0 0" xyz="0 0.05 0"/>  
+	    <axis xyz="1 0 0"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+  <link name="left_gripper">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 0 0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/gripper.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/gripper.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	<joint name="left_gripper_joint" type="revolute"> 
+	    <parent link="left_hand"/>
+	    <child link="left_gripper"/>
+	    <origin rpy="0 0 0" xyz="0 0 -0.45"/>  
+	    <axis xyz="0 0 1"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+  <link name="left_thigh">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.15"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/thigh.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.15"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/thigh.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	<joint name="left_thigh_joint" type="revolute"> 
+	    <parent link="torso"/>
+	    <child link="left_thigh"/>
+	    <origin rpy="0 0 0" xyz="0 -0.15 0"/>  
+	    <axis xyz="0 1 0"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+    <link name="left_leg">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.25"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/leg.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.25"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/leg.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	<joint name="left_leg_joint" type="revolute"> 
+	    <parent link="left_thigh"/>
+	    <child link="left_leg"/>
+	    <origin rpy="0 0 0" xyz="0 0 -0.4"/>  
+	    <axis xyz="0 1 0"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+  <link name="left_foot">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 -0.11 -0.0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/foot.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 -0.11  -0.0"/>
+	    	<geometry>
+	    		<mesh filename="examples/examples/urdf/foot.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	<joint name="left_foot_joint" type="revolute"> 
+	    <parent link="left_leg"/>
+	    <child link="left_foot"/>
+	    <origin rpy="0 0 1.57" xyz="-0.05 0 -0.47"/>  
+	    <axis xyz="1 0 0"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+
+
+
+
+  <link name="right_shoulder_base"/> 
+
+  <joint name="right_shoulder_base_joint" type="fixed"> 
+	    <parent link="torso"/>
+	    <child link="right_shoulder_base"/>
+	    <origin rpy="0 0 0" xyz="0 -0.2 0.6"/>   
+  	</joint>
+
+  <link name="right_shoulder">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 0 0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/shoulder.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/shoulder.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	 <joint name="right_shoulder_joint" type="revolute"> 
+	    <parent link="right_shoulder_base"/>
+	    <child link="right_shoulder"/>
+	    <origin rpy="0 0 0" xyz="0 0 0"/>  
+	    <axis xyz="0 1 0"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+  <link name="right_hand">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.2"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/hand.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.2"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/hand.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	<joint name="right_hand_joint" type="revolute"> 
+	    <parent link="right_shoulder"/>
+	    <child link="right_hand"/>
+	    <origin rpy="0 0 0" xyz="0 -0.05 0"/>  
+	    <axis xyz="1 0 0"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+  <link name="right_gripper">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 0 0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/gripper.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/gripper.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	<joint name="right_gripper_joint" type="revolute"> 
+	    <parent link="right_hand"/>
+	    <child link="right_gripper"/>
+	    <origin rpy="0 0 0" xyz="0 0 -0.45"/>  
+	    <axis xyz="0 0 1"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+  <link name="right_thigh">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.15"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/thigh.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 0 -0.15"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/thigh.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	<joint name="right_thigh_joint" type="revolute"> 
+	    <parent link="torso"/>
+	    <child link="right_thigh"/>
+	    <origin rpy="0 0 0" xyz="0 0.15 0"/>  
+	    <axis xyz="0 1 0"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+ <link name="right_leg">
+	<inertial>
+      <origin rpy="0 0 0" xyz="0 0 07"/>
+      <mass value="4"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
+    <visual>
+    	<origin rpy="0 0 0" xyz="0 0 -0.25"/>
+    	<geometry>
+    		<mesh filename="examples/urdf/leg.obj"/>
+    	</geometry>
+    </visual>
+    <collision>
+    	<origin rpy="0 0 0" xyz="0 0 -0.25"/>
+    	<geometry>
+    		<mesh filename="examples/urdf/leg.obj"/>
+    	</geometry>
+    </collision>
+</link>
+
+<joint name="right_leg_joint" type="revolute"> 
+    <parent link="right_thigh"/>
+    <child link="right_leg"/>
+    <origin rpy="0 0 0" xyz="0 0 -0.4"/>  
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+  <link name="right_foot">
+		<inertial>
+	      <origin rpy="0 0 0" xyz="0 0 07"/>
+	      <mass value="4"/>
+	      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+	    </inertial>
+	    <visual>
+	    	<origin rpy="0 0 0" xyz="0 -0.11 -0.0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/foot.obj"/>
+	    	</geometry>
+	    </visual>
+	    <collision>
+	    	<origin rpy="0 0 0" xyz="0 -0.11  -0.0"/>
+	    	<geometry>
+	    		<mesh filename="examples/urdf/foot.obj"/>
+	    	</geometry>
+	    </collision>
+	</link>
+
+	<joint name="right_foot_joint" type="revolute"> 
+	    <parent link="right_leg"/>
+	    <child link="right_foot"/>
+	    <origin rpy="0 0 1.57" xyz="-0.05 0 -0.47"/>  
+	    <axis xyz="1 0 0"/>
+	    <limit lower="-3.1415" upper="3.1415" effort="1.4" velocity="0.25"/>
+  </joint>
+
+
+</robot>
