@@ -39,8 +39,11 @@ urdf = "examples/urdf/raphael.urdf"
 mechanism = parse_urdf(urdf)
 state = MechanismState(mechanism)
 
-body = findbody(mechanism, "left_foot")
-footpoint = Point3D(default_frame(body), 0.,0.,-0.)
+lbody = findbody(mechanism, "left_foot")
+lfootpoint = Point3D(default_frame(lbody), 0.,0.,-0.0)
+
+rbody = findbody(mechanism, "right_foot")
+rfootpoint = Point3D(default_frame(rbody), 0.,0.,-0.0)
 
 mvis = MechanismVisualizer(mechanism, URDFVisuals(urdf))
 settransform!(mvis.visualizer, Translation(0,0,0.9))
@@ -50,12 +53,33 @@ settransform!(mvis.visualizer, Translation(0,0,0.9))
 # jacobian_transpose_ik!(state, body, footpoint, desired_location)
 # set_configuration!(mvis, configuration(state))
 
-qs = typeof(configuration(state))[]
-for x in range(-0.2, stop=0.2, length=100)
-    desired = Point3D(root_frame(mechanism), x, 0., -0.9)
-    jacobian_transpose_ik!(state, body, footpoint, desired)
-    push!(qs, copy(configuration(state)))
+init_position = [0.0, 0.0, 0.0]
+goal_position = [5.0, 0.0, 0.0]
+x = move_to_position(init_position; goal_position=goal_position)
+
+xb,yb,zb = x[1], x[2], ones(length(x[1]))
+xl,yl,zl = x[3], x[4], x[5]
+xr,yr,zr = x[6], x[7], x[8]
+
+anim = Animation()
+for i=1:length(xb)
+    atframe(anim, i) do 
+        # settransform!(mvis.visualizer, Translation(xb[i], yb[i], 0.9))
+        ld = Point3D(root_frame(mechanism), xl[i], yl[i], zl[i])
+        jacobian_transpose_ik!(state, lbody, lfootpoint, ld)
+        set_configuration!(mvis, configuration(state) )
+        rd = Point3D(root_frame(mechanism), xr[i], yr[i], zr[i])
+        jacobian_transpose_ik!(state, rbody, rfootpoint, rd)
+        set_configuration!(mvis, configuration(state) )
+    end
 end
-ts = collect(range(0, stop=2.5, length=length(qs)))
-setanimation!(mvis, Animation(mvis, ts, qs))
+setanimation!(mvis, anim)
+# qs = typeof(configuration(state))[]
+# for x in range(-0.2, stop=0.2, length=100)
+#     desired = Point3D(root_frame(mechanism), x, 0., -0.9)
+#     jacobian_transpose_ik!(state, body, footpoint, desired)
+#     push!(qs, copy(configuration(state)))
+# end
+# ts = collect(range(0, stop=2.5, length=length(qs)))
+# setanimation!(mvis, Animation(mvis, ts, qs))
 render(mvis)

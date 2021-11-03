@@ -9,7 +9,7 @@ using LinearAlgebra
 
 include("dynamics/walking_dynamics.jl")
 include("dynamics/interface.jl")
-include("simulation/animate.jl")
+include("visualization/animate.jl")
 
 
 export 
